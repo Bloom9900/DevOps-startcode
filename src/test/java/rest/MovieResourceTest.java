@@ -27,6 +27,10 @@ public class MovieResourceTest {
     private static final String SERVER_URL = "http://localhost/api";
     private static Movie r1,r2;
     
+    private static String[] actors1 = new String[]{"Tim Robbins", "Morgan Freeman", "Bob Gunton", "William Sadler"};
+    private static String[] actors2 = new String[]{"Marlon Brando", "Al Pacino", "James Caan", "Diane Keaton"};
+    private static String[] actors3 = new String[]{"Christian Bale", "Heath Ledger", "Aaron Eckhart", "Michael Caine"};
+    
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
@@ -62,11 +66,11 @@ public class MovieResourceTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
-        r1 = new Movie("Some txt","More text");
-        r2 = new Movie("aaa","bbb");
+        r1 = new Movie(1994, "The Shawshank Redemption", actors1);
+        r2 = new Movie(1972, "The Godfather", actors2);
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
             em.persist(r1);
             em.persist(r2); 
             em.getTransaction().commit();
@@ -78,7 +82,7 @@ public class MovieResourceTest {
     @Test
     public void testServerIsUp() {
         System.out.println("Testing is server UP");
-        given().when().get("/xxx").then().statusCode(200);
+        given().when().get("/movies").then().statusCode(200);
     }
    
     //This test assumes the database contains two rows
@@ -86,7 +90,7 @@ public class MovieResourceTest {
     public void testDummyMsg() throws Exception {
         given()
         .contentType("application/json")
-        .get("/xxx/").then()
+        .get("/movies/").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
         .body("msg", equalTo("Hello World"));   
@@ -96,7 +100,7 @@ public class MovieResourceTest {
     public void testCount() throws Exception {
         given()
         .contentType("application/json")
-        .get("/xxx/count").then()
+        .get("/movies/count").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
         .body("count", equalTo(2));   

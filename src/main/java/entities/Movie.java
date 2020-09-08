@@ -5,11 +5,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 
 @Entity
-@NamedQuery(name = "RenameMe.deleteAllRows", query = "DELETE from RenameMe")
+@NamedQueries({
+@NamedQuery(name = "Movie.deleteAllRows", query = "DELETE From Movie"),
+@NamedQuery(name = "Movie.getAll", query = "SELECT m FROM Movie m"),
+@NamedQuery(name = "Movie.getByTitle", query = "SELECT m FROM Movie m WHERE m.title LIKE CONCAT('%',:title,'%')"),
+@NamedQuery(name = "Movie.getByID", query = "SELECT m FROM Movie m WHERE m.id = :id")
+})
 public class Movie implements Serializable {
 
     private static final long serialVersionUID = 1L;
