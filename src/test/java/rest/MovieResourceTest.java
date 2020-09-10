@@ -79,30 +79,30 @@ public class MovieResourceTest {
         }
     }
     
-    @Test
-    public void testServerIsUp() {
-        System.out.println("Testing is server UP");
-        given().when().get("/movies").then().statusCode(200);
-    }
-   
-    //This test assumes the database contains two rows
-    @Test
-    public void testDummyMsg() throws Exception {
-        given()
-        .contentType("application/json")
-        .get("/movies/").then()
-        .assertThat()
-        .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("msg", equalTo("Hello World"));   
-    }
-    
-    @Test
-    public void testCount() throws Exception {
-        given()
-        .contentType("application/json")
-        .get("/movies/count").then()
-        .assertThat()
-        .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("count", equalTo(2));   
-    }
+//    @Test
+//    public void testServerIsUp() {
+//        System.out.println("Testing is server UP");
+//        given().when().get("/movies").then().statusCode(200);
+//    }
+//   
+//    //This test assumes the database contains two rows
+//    @Test
+//    public void testDummyMsg() throws Exception {
+//        given()
+//        .contentType("application/json")
+//        .get("/movies/").then()
+//        .assertThat()
+//        .statusCode(HttpStatus.OK_200.getStatusCode())
+//        .body("msg", equalTo("Hello World"));   
+//    }
+//    
+//    @Test
+//    public void testCount() throws Exception {
+//        given()
+//        .contentType("application/json")
+//        .get("/movies/count").then()
+//        .assertThat()
+//        .statusCode(HttpStatus.OK_200.getStatusCode())
+//        .body("count", equalTo(2));   
+//    }
 }
