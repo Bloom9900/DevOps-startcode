@@ -62,14 +62,21 @@ public class MovieFacadeTest {
 
     @AfterEach
     public void tearDown() {
-//        Remove any data after each test was run
+        //Remove any data after each test was run
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
     }
 
     @Test
     public void testGetMovieByID() {
-        long id = 1;
         MovieDTO expected = new MovieDTO(movie1);
-        MovieDTO result = facade.getMovieByID(id);
+        MovieDTO result = facade.getMovieByID(movie1.getId());
         assertEquals(expected.getTitle(), result.getTitle());
     }
     
@@ -79,10 +86,10 @@ public class MovieFacadeTest {
         assertThat(result, hasSize(2));
     }
 
-//    @Test
-//    public void testAddMovie() {
-//        MovieDTO expected = new MovieDTO(movie3);
-//        MovieDTO result = facade.addMovie(movie3);
-//        assertEquals(expected, result);
-//    }
+    @Test
+    public void testAddMovie() {
+        MovieDTO expected = new MovieDTO(movie3);
+        MovieDTO result = facade.addMovie(movie3);
+        assertEquals(expected.getTitle(), result.getTitle());
+    }
 }

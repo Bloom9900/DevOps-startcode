@@ -46,6 +46,12 @@ public class MovieDTO {
     public void setActors(String[] actors) {
         this.actors = actors;
     }
+
+    @Override
+    public String toString() {
+        return "MovieDTO{" + "id=" + id + ", year=" + year + ", title=" + title + ", actors=" + actors + '}';
+    }
+    
     
     
 }

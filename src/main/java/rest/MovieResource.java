@@ -15,7 +15,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 
 //Todo Remove or change relevant parts before ACTUAL use
-@Path("movies")
+@Path("movie")
 public class MovieResource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
