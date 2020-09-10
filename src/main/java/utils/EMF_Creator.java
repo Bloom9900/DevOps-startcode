@@ -53,7 +53,7 @@ public class EMF_Creator {
         }
 
         /* Strategy for dev and test
-           Uses the two persistence units declared in persistence.xml
+           Uses the two persistence units declared in persistence.xml 
          */
         String puName = isTest || System.getProperty("IS_INTEGRATION_TEST_WITH_DB") != null ? "puTest" : "pu"; //Only legal names
         if (puName.equals("puTest")) {
