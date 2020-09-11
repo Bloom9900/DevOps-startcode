@@ -40,6 +40,16 @@ public class MovieFacade {
         return emf.createEntityManager();
     }
     
+    public long getMovieCount() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Query query = em.createQuery("SELECT COUNT(m) FROM Movie m");
+            return (long) query.getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
+    
     public List<MovieDTO> getAll() {
         EntityManager em = emf.createEntityManager();
         List<MovieDTO> movieDTOs = new ArrayList();
@@ -71,6 +81,18 @@ public class MovieFacade {
             em.getTransaction().begin();
             em.persist(movie);
             em.getTransaction().commit();
+            return new MovieDTO(movie);
+        } finally {
+            em.close();
+        }
+    }
+    
+    public MovieDTO getMovieByTitle(String title) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m WHERE m.title = :title", Movie.class);
+            query.setParameter("title", title);
+            Movie movie = query.getSingleResult();
             return new MovieDTO(movie);
         } finally {
             em.close();

@@ -14,6 +14,7 @@ import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -79,30 +80,60 @@ public class MovieResourceTest {
         }
     }
     
-//    @Test
-//    public void testServerIsUp() {
-//        System.out.println("Testing is server UP");
-//        given().when().get("/movies").then().statusCode(200);
-//    }
-//   
-//    //This test assumes the database contains two rows
-//    @Test
-//    public void testDummyMsg() throws Exception {
-//        given()
-//        .contentType("application/json")
-//        .get("/movies/").then()
-//        .assertThat()
-//        .statusCode(HttpStatus.OK_200.getStatusCode())
-//        .body("msg", equalTo("Hello World"));   
-//    }
-//    
-//    @Test
-//    public void testCount() throws Exception {
-//        given()
-//        .contentType("application/json")
-//        .get("/movies/count").then()
-//        .assertThat()
-//        .statusCode(HttpStatus.OK_200.getStatusCode())
-//        .body("count", equalTo(2));   
-//    }
+    @Test
+    public void testServerIsUp() {
+        System.out.println("Testing is server UP");
+        given().when().get("/movie").then().statusCode(200);
+    }
+   
+    //This test assumes the database contains two rows
+    @Test
+    public void testDummyMsg() throws Exception {
+        given()
+        .contentType("application/json")
+        .get("/movie/").then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("msg", equalTo("Hello World"));   
+    }
+    
+    @Test
+    public void testCount() throws Exception {
+        given()
+        .contentType("application/json")
+        .get("/movie/count").then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("count", equalTo(2));   
+    }
+    
+    @Test
+    public void testGetAll() throws Exception {
+        given()
+        .contentType("application/json")
+        .get("/movie/all").then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("title", hasItems("The Godfather", "The Shawshank Redemption"));
+    }
+    
+    @Test
+    public void testGetMovieByTitle() throws Exception {
+        given()
+        .contentType("application/json")
+        .get("/movie/title/" + r2.getTitle()).then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("title", equalTo(r2.getTitle()));
+    }
+    
+    @Test
+    public void testGetMovieByID() throws Exception {
+        given()
+        .contentType("application/json")
+        .get("/movie/" + r2.getId()).then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("title", equalTo(r2.getTitle()));
+    }
 }

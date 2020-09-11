@@ -32,18 +32,34 @@ public class MovieResource {
         return "{\"msg\":\"Hello World\"}";
     }
     
-    @Path("all")
+    @Path("/count")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
+    public String getRenameMeCount() {
+        long count = facade.getMovieCount();
+        //System.out.println("--------------->"+count);
+        return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
+    }
+    
+    @Path("/all")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public String getMovies() {
         return gson.toJson(facade.getAll());
     }
     
     @Path("/{id}")
     @GET
-    @Produces
+    @Produces(MediaType.APPLICATION_JSON)
     public String getMovieByID(@PathParam("id") long id) {
         return gson.toJson(facade.getMovieByID(id));
+    }
+    
+    @Path("/title/{title}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getMovieByTitle(@PathParam("title") String title) {
+        return gson.toJson(facade.getMovieByTitle(title));
     }
     
     @POST

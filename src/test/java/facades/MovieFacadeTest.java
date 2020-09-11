@@ -81,6 +81,13 @@ public class MovieFacadeTest {
     }
     
     @Test
+    public void testGetMovieByTitle() {
+        MovieDTO expected = new MovieDTO(movie1);
+        MovieDTO result = facade.getMovieByTitle(movie1.getTitle());
+        assertEquals(expected.getTitle(), result.getTitle());
+    }
+    
+    @Test
     public void testGetAll() {
         List<MovieDTO> result = facade.getAll();
         assertThat(result, hasSize(2));
@@ -91,5 +98,12 @@ public class MovieFacadeTest {
         MovieDTO expected = new MovieDTO(movie3);
         MovieDTO result = facade.addMovie(movie3);
         assertEquals(expected.getTitle(), result.getTitle());
+    }
+    
+    @Test
+    public void testGetMovieCount() {
+        long expected = 2;
+        long result = facade.getMovieCount();
+        assertEquals(expected, result);
     }
 }
