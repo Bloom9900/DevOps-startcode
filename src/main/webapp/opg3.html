@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>Opgave 3</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+        <div id="mydiv">
+            
+        </div>
+        
+        <form id="form">
+            <h5>Tilføj et navn</h5>
+            <input type="text" id="navn">
+            <input type="submit" onclick="newArrayEntry()" id="button" value="Add name">
+            <button onclick="removeFirst()">Fjern første</button>
+            <button onclick="removeLast()">Fjern sidste</button>
+        </form>
+        
+        <script>
+            var names = ["Lars", "Peter", "Jan", "Ian"];
+            var html = makeHTML(names);
+            
+            function makeHTML(names) {
+                return "<ul>"+names.map(getList).join('')+"</ul>";
+            }
+            
+            function getList(name) {
+                return "<li>"+name+"</li>";
+            }
+            
+            function newArrayEntry() {
+                names.push(document.getElementById("navn").value);
+                html = makeHTML(names);
+                document.getElementById("mydiv").innerHTML = html;
+                event.preventDefault();
+            }
+            
+            function removeFirst() {
+                names.shift();
+                html = makeHTML(names);
+                document.getElementById("mydiv").innerHTML = html;
+                event.preventDefault();
+            }
+            
+            function removeLast() {
+                names.pop();
+                html = makeHTML(names);
+                document.getElementById("mydiv").innerHTML = html;
+                event.preventDefault();
+            }
+            
+            document.getElementById("mydiv").innerHTML = html;
+            
+            console.log(names);
+        </script>
+        
+    </body>
+</html>

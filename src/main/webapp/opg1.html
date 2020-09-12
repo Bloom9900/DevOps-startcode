@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Opgave 1</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <h1>Hello World!</h1>
+
+        <div id="1">Nummer  1</div>
+        <div id="2">Nummer  2</div>
+        <div id="3">Nummer  3</div>
+        
+        <button id ="button">This is my button!</button>
+        
+    <script>
+        var ids = document.getElementsByTagName("div");
+        for (var i = 0; i < ids.length; i++) {
+            ids[i].style.backgroundColor = "blue";
+        }
+        
+        function giveSpecificColour() {
+            document.getElementById("1").style.backgroundColor = "yellow";
+            document.getElementById("2").style.backgroundColor = "green";
+            document.getElementById("3").style.backgroundColor = "pink";
+        }
+        var btn = document.getElementById("button");
+        
+        btn.addEventListener('click', (event) => {
+            event.preventDefault();
+            giveSpecificColour();
+        })
+        
+    </script>
+    
+    </body>
+</html>
